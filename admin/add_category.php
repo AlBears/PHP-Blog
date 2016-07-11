@@ -1,4 +1,24 @@
 <?php include 'includes/header.php'; ?>
+<?php
+  //Create DB Object
+  $db = new Database();
+  
+  if(isset($_POST['submit'])){
+    //Assign Vars
+    $name = mysqli_real_escape_string($db->link, $_POST['name']); 
+    //Simple Validation
+    if($name == ''){
+      //Set Error
+      $error = 'Please fill out all required fields';
+    } else {
+      $query = "INSERT INTO categories
+            (name) 
+        VALUES('$name')";
+      
+      $update_row = $db->update($query);
+    }
+  }
+?>
 <form role="form" method="post" action="add_category.php">
   <div class="form-group">
     <label>Category Name</label>
